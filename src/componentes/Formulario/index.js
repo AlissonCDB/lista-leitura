@@ -44,29 +44,31 @@ export const Formulario = (props) => {
     const [obra, setObra] = useState('')
     const [volume, setVolume] = useState('')
     const [imagem, setImagem] = useState('')
-    const [capitulo, setCapitulo] = useState('')
+    const [pagina, setPagina] = useState('')
     const [link, setLink] = useState('')
 
-    const aoSalvar = (event) => {
-        event.preventDefault()
-        postLivro(obra, volume, imagem, link, capitulo, genero)
-            .then(data => {
-                alert("Adicão bem sucedida!")
-                console.log(obra)
-            })
-            .catch(error => {
-                if (error.response && error.response.status === 400) {
-                    alert(error.response.data);
-                  } else if (error.response && error.response.status === 422) {
-                    alert(error.response.data);
-                  } else if (error.response && error.response.status === 500) {
-                    alert(error.response.data);
-                  } else {
-                    console.log('Ocorreu um erro ao adicionar a obra.');
-                    console.log(error);
-                  }
-            });
-    }
+    const aoSalvar = async (event) => {
+        event.preventDefault();
+        try {
+          const data = await postLivro(obra, volume, imagem, link, pagina, genero);
+          alert(data.message || "Adição bem-sucedida!");
+          console.log(data);
+          
+          setGenero('');
+          setObra('');
+          setVolume('');
+          setImagem('');
+          setPagina('');
+          setLink('');
+        } catch (error) {
+          if (error.response && error.response.data) {
+            alert(error.response.data.message || "Ocorreu um erro ao adicionar a obra.");
+          } else {
+            console.log('Ocorreu um erro ao adicionar a obra.');
+            console.log(error);
+          }
+        }
+      };
 
     return (
         <FormularioContainer>
@@ -96,8 +98,8 @@ export const Formulario = (props) => {
                     obrigatorio={true}
                     label="Página"
                     placeholder="Numero da pagina ou capitulo atual"
-                    valor={capitulo}
-                    aoAlterado={e => setCapitulo(e.target.value)}
+                    valor={pagina}
+                    aoAlterado={e => setPagina(e.target.value)}
 
                 />
                 <CampoTexto

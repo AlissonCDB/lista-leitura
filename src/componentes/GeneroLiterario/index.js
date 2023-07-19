@@ -35,11 +35,11 @@ export const GeneroLiterario = (props) => {
                     <Card
                         key={index}
                         corDeFundo={props.corPrimaria}
-                        obra={card.Obra}
-                        volume={card.Volume}
-                        capitulo={card.Capitulo}
-                        imagem={card.Imagem}
-                        link={card.Link}
+                        obra={card.obra}
+                        volume={card.volume}
+                        capitulo={card.pagina}
+                        imagem={card.imagem}
+                        link={card.link}
                     />)}
             </Generos>
         </GeneroLiterarioContainer>

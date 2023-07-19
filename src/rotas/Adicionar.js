@@ -8,17 +8,17 @@ export const Adicionar = (props) => {
 
     const generos = [
         {
-          nome: 'Livros',
+          nome: 'Livro',
           corPrimaria: '#57C278',
           corSecundaria: '#D9F7E9'
         },
         {
-          nome: 'Mangas e Manhwas',
+          nome: 'Manga',
           corPrimaria: '#82CFFA',
           corSecundaria: '#E8F8FF'
         },
         {
-          nome: 'Novels',
+          nome: 'Novel',
           corPrimaria: '#E06B69',
           corSecundaria: '#FDE7E8'
         }

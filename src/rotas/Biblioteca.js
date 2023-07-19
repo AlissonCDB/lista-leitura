@@ -21,20 +21,19 @@ export const Biblioteca = () => {
 
      fetchLivros();
   }, [])
-
   const generos = [
     {
-      nome: 'Livros',
+      nome: 'Livro',
       corPrimaria: '#57C278',
       corSecundaria: '#D9F7E9'
     },
     {
-      nome: 'Mangas',
+      nome: 'Manga',
       corPrimaria: '#82CFFA',
       corSecundaria: '#E8F8FF'
     },
     {
-      nome: 'Novels',
+      nome: 'Novel',
       corPrimaria: '#E06B69',
       corSecundaria: '#FDE7E8'
     },
@@ -45,6 +44,8 @@ export const Biblioteca = () => {
     }
 
   ]
+
+  console.log(livros)
   return (
     <BibliotecaContainer>
       {generos.map(genero => <GeneroLiterario 
@@ -52,7 +53,7 @@ export const Biblioteca = () => {
         corPrimaria={genero.corPrimaria}
         corSecundaria={genero.corSecundaria}
         nome={genero.nome}
-        livros={livros.filter(livro => livro.Genero === genero.nome)}
+        livros={livros.filter(livro => livro.genero === genero.nome)}
       />)}
     </BibliotecaContainer>
   )

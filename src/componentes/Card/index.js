@@ -1,5 +1,5 @@
+import { useState, useEffect} from "react"
 import { styled } from "styled-components"
-
 
 const CardContainer = styled.div`
     display: flex;
@@ -52,7 +52,14 @@ const VolumePagina = styled.div`
 
 
 const Card = ({ obra, volume, capitulo, imagem, link, corDeFundo }) => {
+    const impressoOuDigital = link ? "Ir para a obra" : "Obra física";
+    const [digitalTrue, setDigitalTrue] = useState()
 
+    useEffect(() => {
+        setDigitalTrue(!!link);
+    },
+        [link]
+    );
     return (
 
         <CardContainer>
@@ -67,14 +74,14 @@ const Card = ({ obra, volume, capitulo, imagem, link, corDeFundo }) => {
                 <h4> {obra} </h4>
 
                 <VolumePagina>
-                    <h5>Volume <br/><br/> {volume} </h5>
-                    <h5>Pagina <br/><br/> {capitulo} </h5>
+                    <h5>Volume <br /><br /> {volume} </h5>
+                    <h5>Pagina <br /><br /> {capitulo} </h5>
                 </VolumePagina>
 
-                <h5><a href={link}> Ir para a obra </a></h5>
+                {digitalTrue && <h5><a href={link}> {impressoOuDigital} </a></h5>}
+                {!digitalTrue && <h5>{impressoOuDigital}</h5>}
 
             </InformacoesContainer>
-
 
         </CardContainer>
 

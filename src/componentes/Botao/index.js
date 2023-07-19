@@ -4,8 +4,8 @@ const BotaoContainer = styled.button`
     background-color: cyan;
 
     padding: 25px;
-    margin-top: 35px;
-    width: 50%;
+    margin-top: 50px;
+    width: 80%;
     font-size: 18px;
     font-weight: bold;
 
@@ -16,6 +16,10 @@ const BotaoContainer = styled.button`
     &:hover{
         background-color: #000080;
         color: white;
+    }
+
+    @media screen and (min-width: 720px){
+        width: 50%;
     }
 `
 

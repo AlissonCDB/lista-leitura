@@ -11,26 +11,28 @@ const FormularioContainer = styled.section`
     flex-direction: row;
     justify-content: center;
     text-align: center;
-    margin-bottom: 80px;
 
     form{
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
         background: linear-gradient(to top, #8A2BE2, #87CEEB);
-        width: 80%;
-        padding: 35px 65px;
+        padding: 0;
+        width: 90%;
         border-radius: 20px; 
-        box-shadow: 8px 8px 16px rgba(127, 6, 226, 0.801); 
+        box-shadow: 8px 8px 16px rgba(127, 6, 226, 0.801);
+        margin-bottom: 20px;
+        padding-bottom: 20px;
     }
 
-    @media screen and (max-width: 720px){
+    @media screen and (min-width: 720px){
 
         form{
-            flex-direction: column;
-            width: 90%;
-            padding: 0;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 35px 65px;
+            width: 80%;
         }
     }
 `

@@ -6,12 +6,15 @@ const ListaSuspensaContainer = styled.div`
     align-items: center;
 
     margin-top: 35px;
-    width: 50%;
+    width: 100%;
 
     label{
         display: block;
         font-size: 24px;
         margin-bottom: 10px;
+    }
+    @media screen and (min-width: 720px){
+        width: 50%;   
     }
 `
 const FundoDoSelect = styled.div`
@@ -27,12 +30,18 @@ const FundoDoSelect = styled.div`
         width: 95%;
         border: none;
         text-align: center;
-        font-size: 24px;
+        font-size: 18px;
 
         &:focus{
             outline: none;
         }
     }
+    @media screen and (min-width: 720px){
+        select{
+            font-size: 24px;
+        }
+    }
+
 `
 
 const ListaSuspensa = (props) => {

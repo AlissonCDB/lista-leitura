@@ -105,7 +105,7 @@ export const Formulario = (props) => {
 
                 />
                 <CampoTexto
-                    obrigatorio={true}
+                    obrigatorio={false}
                     label="Imagem"
                     placeholder="Adicione o link de uma imagem da obra"
                     valor={imagem}

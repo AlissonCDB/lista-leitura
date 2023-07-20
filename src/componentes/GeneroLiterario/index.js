@@ -40,6 +40,9 @@ export const GeneroLiterario = (props) => {
                         capitulo={card.pagina}
                         imagem={card.imagem}
                         link={card.link}
+                        id={card._id}
+                        opcoesOcultas={props.opcoesOcultas}
+                        onDelete={props.onDelete}
                     />)}
             </Generos>
         </GeneroLiterarioContainer>

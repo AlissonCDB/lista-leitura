@@ -1,14 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-
+import ReactDOM from 'react-dom';
 import { createGlobalStyle } from 'styled-components';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { Header } from './componentes/Header';
-import { Adicionar } from './rotas/Adicionar';
 import { Biblioteca } from './rotas/Biblioteca';
 import { Favoritos } from './rotas/Favoritos';
-
+import { Adicionar } from './rotas/Adicionar';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -28,19 +26,23 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <GlobalStyle />
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path='/' element={<Biblioteca />} />
-        <Route path='/biblioteca' element={<Biblioteca />} />
-        <Route path='/favoritos' element={<Favoritos />} />
-        <Route path='/adicionar' element={<Adicionar />} />
-    </Routes>
-    </BrowserRouter>
+function App() {
 
-  </React.StrictMode>
-);
+  return (
+    <React.StrictMode>
+      <GlobalStyle />
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path='/' element={<Biblioteca />} />
+          <Route path='/biblioteca' element={<Biblioteca />} />
+          <Route path='/favoritos' element={<Favoritos />} />
+          <Route path='/adicionar' element={<Adicionar />} />
+        </Routes>
+      </BrowserRouter>
+    </React.StrictMode>
+  );
+}
+
+const rootElement = document.getElementById('root');
+ReactDOM.render(<App />, rootElement);

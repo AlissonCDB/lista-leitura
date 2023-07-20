@@ -1,5 +1,6 @@
 import { useState, useEffect} from "react"
 import { styled } from "styled-components"
+import { deleteLivro } from "../../servicos/estante"
 
 const CardContainer = styled.div`
     display: flex;
@@ -51,21 +52,36 @@ const VolumePagina = styled.div`
 `
 
 
-const Card = ({ obra, volume, capitulo, imagem, link, corDeFundo }) => {
+const Card = ({ onDelete, opcoesOcultas, id, obra, volume, capitulo, imagem, link, corDeFundo }) => {
     const impressoOuDigital = link ? "Ir para a obra" : "Obra física";
     const [digitalTrue, setDigitalTrue] = useState()
+
+    const imagemPadrao = imagem ? imagem : "https://cdn-icons-png.flaticon.com/512/4211/4211763.png";
 
     useEffect(() => {
         setDigitalTrue(!!link);
     },
         [link]
     );
+
+    const deletarLivro = async () => {
+        try {
+          await deleteLivro(id);
+          alert("Livro deletado!");
+          onDelete(id);
+        } catch (error) {
+          console.log("Ocorreu um erro:");
+          console.log(error);
+        }
+      };
+
     return (
 
         <CardContainer>
+            {opcoesOcultas && <button onClick={deletarLivro}>Deletar</button>}
             <ImagemContainer style={{ backgroundColor: corDeFundo }}>
 
-                <img src={imagem} alt={obra} />
+                <img src={imagemPadrao} alt={obra} />
 
             </ImagemContainer>
 

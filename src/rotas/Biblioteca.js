@@ -42,8 +42,6 @@ export const Biblioteca = () => {
       console.log(error);
     }
   };
-
-  console.log(opcoesOcultas)
   return (
     <BibliotecaContainer>
       <EditarContainer onClick={ativarAlteracao} >editar</EditarContainer>

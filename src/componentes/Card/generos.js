@@ -11,7 +11,7 @@ export const generos = [
     },
     {
       nome: 'Novel',
-      corPrimaria: '#E06B69',
+      corPrimaria: '#F44E3F',
       corSecundaria: '#FDE7E8'
     },
     {

@@ -1,10 +1,11 @@
-import { useState, useEffect} from "react"
+import { useState, useEffect } from "react"
 import { styled } from "styled-components"
 import { deleteLivro } from "../../servicos/estante"
 
 const CardContainer = styled.div`
     display: flex;
     flex-direction: column;
+    position: relative;
     width: 280px;
     padding: 32px;
 
@@ -50,7 +51,21 @@ const VolumePagina = styled.div`
     }
 
 `
+const BotaoDelete = styled.button`
+    
+    position: absolute;
+    right: 30px;
+    margin: 15px;
+    background-color: #E06B69;
+    color: white;
+    border: none;
+    border-radius: 45px;
 
+    &:hover{
+        background-color: white;
+        color: black;
+    }
+`
 
 const Card = ({ onDelete, opcoesOcultas, id, obra, volume, capitulo, imagem, link, corDeFundo }) => {
     const impressoOuDigital = link ? "Ir para a obra" : "Obra física";
@@ -66,23 +81,22 @@ const Card = ({ onDelete, opcoesOcultas, id, obra, volume, capitulo, imagem, lin
 
     const deletarLivro = async () => {
         try {
-          await deleteLivro(id);
-          alert("Livro deletado!");
-          onDelete(id);
+            await deleteLivro(id);
+            alert("Livro deletado!");
+            onDelete(id);
         } catch (error) {
-          console.log("Ocorreu um erro:");
-          console.log(error);
+            console.log("Ocorreu um erro:");
+            console.log(error);
         }
-      };
+    };
 
     return (
 
         <CardContainer>
-            {opcoesOcultas && <button onClick={deletarLivro}>Deletar</button>}
+            {opcoesOcultas && <BotaoDelete onClick={deletarLivro}>Excluir</BotaoDelete>}
+
             <ImagemContainer style={{ backgroundColor: corDeFundo }}>
-
                 <img src={imagemPadrao} alt={obra} />
-
             </ImagemContainer>
 
             <InformacoesContainer>

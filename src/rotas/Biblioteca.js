@@ -8,13 +8,13 @@ const BibliotecaContainer = styled.div`
   display: flex;
   flex-direction: column;
 `
-
 const EditarContainer = styled.button``
 
 export const Biblioteca = () => {
   const [livros, setLivros] = useState([])
   const [opcoesOcultas, setOpcoesOcultas] = useState(false)
 
+  //Chama o Banco de Dados
   useEffect(() => {
      const fetchLivros = async () => {
       try {
@@ -27,11 +27,11 @@ export const Biblioteca = () => {
 
      fetchLivros();
   }, [])
-
+  //Ativa ou oculta a edição
   const ativarAlteracao = () => {
     setOpcoesOcultas(!opcoesOcultas)
   }
-
+  //Exclui o livro desejado
   const handleDeleteLivro = async (id) => {
     try {
       await deleteLivro(id);

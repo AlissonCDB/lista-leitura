@@ -6,8 +6,8 @@ const CardContainer = styled.div`
     display: flex;
     flex-direction: column;
     position: relative;
-    width: 280px;
-    padding: 32px;
+    min-width: 280px;
+    padding: 16px 16px 32px 16px;
 
     h4{
         color: #6278f7;
@@ -54,7 +54,7 @@ const VolumePagina = styled.div`
 const BotaoDelete = styled.button`
     
     position: absolute;
-    right: 30px;
+    right: 15px;
     margin: 15px;
     background-color: #E06B69;
     color: white;

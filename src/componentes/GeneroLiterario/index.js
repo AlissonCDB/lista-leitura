@@ -27,7 +27,6 @@ const Generos = styled.div`
     width: 100%;
     flex-direction: row;
     overflow-x: scroll;
-    white-space: nowrap;
     margin: 16px 0;
 
     @media screen and (min-width: 720px){

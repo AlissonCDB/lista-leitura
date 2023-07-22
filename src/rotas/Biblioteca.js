@@ -10,7 +10,7 @@ const BibliotecaContainer = styled.div`
 `
 const EditarContainer = styled.button``
 
-export const Biblioteca = () => {
+export const Biblioteca = (props) => {
   const [livros, setLivros] = useState([])
   const [opcoesOcultas, setOpcoesOcultas] = useState(false)
 

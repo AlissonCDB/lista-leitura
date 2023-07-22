@@ -30,7 +30,7 @@ export const Header = () => {
         <HeaderContainer>
 
             <Titulo>
-                Estante Digital
+                Biblioteca Digital
             </Titulo>
             <OpcoesHeader/>
 

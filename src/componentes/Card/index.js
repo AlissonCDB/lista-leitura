@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import { styled } from "styled-components"
 import { deleteLivro, patchLivro } from "../../servicos/estante"
+import { VolumeEPagina } from "./VolumeEPagina"
 
 const CardContainer = styled.div`
     display: flex;
@@ -20,11 +21,9 @@ const CardContainer = styled.div`
         font-size: 20px;
         font-weight: bold;
     }
-
     h5{
         font-size: 18px;
         line-height: 18px;
-        margin: 16px 0;
     }
 `
 const ImagemContainer = styled.div`
@@ -48,16 +47,6 @@ const InformacoesContainer = styled.div`
     border-radius: 0 0 10px 10px;
 
 `
-const VolumePagina = styled.div`
-    display: flex;
-    align-items: center;
-
-    h5{
-        width: 50%;
-        margin: 0;
-    }
-
-`
 const BotaoDelete = styled.button`
     
     position: absolute;
@@ -73,15 +62,6 @@ const BotaoDelete = styled.button`
         color: black;
     }
 `
-const BotaoAlterarNumeros = styled.button`
-    margin: 15px 5px 0 5px;
-    background-color: cyan;
-    width: 25px;
-    height: 25px;
-    border-radius: 50px;
-    border: 1px solid;
-
-`
 
 const Card = ({ onDelete, opcoesOcultas, id, obra, volume, capitulo, imagem, link, corDeFundo, genero }) => {
     const impressoOuDigital = link ? "Ir para a obra" : "Obra física";
@@ -89,45 +69,10 @@ const Card = ({ onDelete, opcoesOcultas, id, obra, volume, capitulo, imagem, lin
     const [valorVolume, setValorVolume] = useState(volume);
     const [valorPagina, setValorPagina] = useState(capitulo);
     const imagemPadrao = imagem || "https://cdn-icons-png.flaticon.com/512/4211/4211763.png";
-    const mostrarVolume = () =>{
-        if(valorVolume === 0){
-            return "Unico" 
-        } else {
-            return valorVolume
-        }
-    }
-    const mostrarPagina = () =>{
-        if(valorPagina === 0){
-            return "Completo" 
-        } else {
-            return valorPagina
-        }
-    }
+
     useEffect(() => {
         setDigitalTrue(!!link);
     }, [link]);
-    useEffect(() => {
-        alterarLivro();
-    });
-
-    const aumentarPagina = () => {
-        setValorPagina(valorPagina + 1);
-    };
-    const diminuirPagina = () => {
-        if (valorPagina === 0) {
-        } else if (valorPagina >= 1) {
-            setValorPagina(valorPagina - 1);
-        }
-    };
-    const aumentarVolume = () => {
-        setValorVolume(valorVolume + 1)
-    }
-    const diminuirVolume = () => {
-        if (valorVolume === 0) {
-        } else if (valorVolume >= 1) {
-            setValorVolume(valorVolume - 1);
-        }
-    };
     const deletarLivro = async () => {
         const confirmDelete = window.confirm("Tem certeza que deseja excluir o livro?");
         if (confirmDelete) {
@@ -141,15 +86,16 @@ const Card = ({ onDelete, opcoesOcultas, id, obra, volume, capitulo, imagem, lin
             }
         }
     };
-    const alterarLivro = () => {
+
+    const alterarLivro = useCallback(async () => {
         try {
-            patchLivro(id, obra, valorVolume, imagem, link, valorPagina, genero);
+            await patchLivro(id, obra, valorVolume, imagem, link, valorPagina, genero);
             console.log("Livro atualizado!");
         } catch (error) {
             console.log("Não foi possível alterar o livro:");
             console.log(error.response.data);
         }
-    };
+    }, [id, obra, valorVolume, imagem, link, valorPagina, genero]);
     return (
         <CardContainer>
             {opcoesOcultas && <BotaoDelete onClick={deletarLivro}>Excluir</BotaoDelete>}
@@ -158,24 +104,15 @@ const Card = ({ onDelete, opcoesOcultas, id, obra, volume, capitulo, imagem, lin
             </ImagemContainer>
             <InformacoesContainer>
                 <h4>{obra}</h4>
-                <VolumePagina>
-                    <h5>
-                        Volume
-                        <br /><br />
-                        {mostrarVolume()}
-                        <br />
-                        {opcoesOcultas && <BotaoAlterarNumeros onClick={diminuirVolume}>-</BotaoAlterarNumeros>}
-                        {opcoesOcultas && <BotaoAlterarNumeros onClick={aumentarVolume}>+</BotaoAlterarNumeros>}
-                    </h5>
-                    <h5>
-                        Pagina
-                        <br /><br />
-                        {mostrarPagina()}
-                        <br />
-                        {opcoesOcultas && <BotaoAlterarNumeros onClick={diminuirPagina}>-</BotaoAlterarNumeros>}
-                        {opcoesOcultas && <BotaoAlterarNumeros onClick={aumentarPagina}>+</BotaoAlterarNumeros>}
-                    </h5>
-                </VolumePagina>
+                <VolumeEPagina
+                    opcoesOcultas={opcoesOcultas}
+                    id={id}
+                    valorVolume={valorVolume}
+                    valorPagina={valorPagina}
+                    setValorVolume={setValorVolume}
+                    setValorPagina={setValorPagina}
+                    alterarLivro={alterarLivro}
+                />
                 {digitalTrue && <h5><a href={link}> {impressoOuDigital} </a></h5>}
                 {!digitalTrue && <h5>{impressoOuDigital}</h5>}
             </InformacoesContainer>

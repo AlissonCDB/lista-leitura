@@ -88,41 +88,46 @@ const Card = ({ onDelete, opcoesOcultas, id, obra, volume, capitulo, imagem, lin
     const [digitalTrue, setDigitalTrue] = useState(!!link);
     const [valorVolume, setValorVolume] = useState(volume);
     const [valorPagina, setValorPagina] = useState(capitulo);
-    console.log(valorVolume)
-    console.log(volume)
     const imagemPadrao = imagem || "https://cdn-icons-png.flaticon.com/512/4211/4211763.png";
-
+    const mostrarVolume = () =>{
+        if(valorVolume === 0){
+            return "Unico" 
+        } else {
+            return valorVolume
+        }
+    }
+    const mostrarPagina = () =>{
+        if(valorPagina === 0){
+            return "Completo" 
+        } else {
+            return valorPagina
+        }
+    }
     useEffect(() => {
         setDigitalTrue(!!link);
     }, [link]);
-    useEffect(() =>{
+    useEffect(() => {
         alterarLivro();
     });
 
     const aumentarPagina = () => {
-        setValorPagina(valorVolume + 1);
-        alterarLivro();
+        setValorPagina(valorPagina + 1);
     };
-
     const diminuirPagina = () => {
-        setValorPagina(valorVolume - 1);
-        alterarLivro();
-    };
-
-    const aumentarVolume = () => {
-        setValorVolume(valorVolume +1)
-    }
-
-    const diminuirVolume = () => {
-        if (valorVolume === 0) {
-            setValorVolume(0);
-            alterarLivro();
-        } else if (valorVolume > 1) {
-            setValorVolume(valorVolume - 1);
-            alterarLivro();
+        if (valorPagina === 0) {
+        } else if (valorPagina >= 1) {
+            setValorPagina(valorPagina - 1);
         }
     };
-
+    const aumentarVolume = () => {
+        setValorVolume(valorVolume + 1)
+    }
+    const diminuirVolume = () => {
+        if (valorVolume === 0) {
+        } else if (valorVolume >= 1) {
+            setValorVolume(valorVolume - 1);
+        }
+    };
     const deletarLivro = async () => {
         const confirmDelete = window.confirm("Tem certeza que deseja excluir o livro?");
         if (confirmDelete) {
@@ -136,7 +141,6 @@ const Card = ({ onDelete, opcoesOcultas, id, obra, volume, capitulo, imagem, lin
             }
         }
     };
-
     const alterarLivro = () => {
         try {
             patchLivro(id, obra, valorVolume, imagem, link, valorPagina, genero);
@@ -158,7 +162,7 @@ const Card = ({ onDelete, opcoesOcultas, id, obra, volume, capitulo, imagem, lin
                     <h5>
                         Volume
                         <br /><br />
-                        {valorVolume}
+                        {mostrarVolume()}
                         <br />
                         {opcoesOcultas && <BotaoAlterarNumeros onClick={diminuirVolume}>-</BotaoAlterarNumeros>}
                         {opcoesOcultas && <BotaoAlterarNumeros onClick={aumentarVolume}>+</BotaoAlterarNumeros>}
@@ -166,7 +170,7 @@ const Card = ({ onDelete, opcoesOcultas, id, obra, volume, capitulo, imagem, lin
                     <h5>
                         Pagina
                         <br /><br />
-                        {valorPagina}
+                        {mostrarPagina()}
                         <br />
                         {opcoesOcultas && <BotaoAlterarNumeros onClick={diminuirPagina}>-</BotaoAlterarNumeros>}
                         {opcoesOcultas && <BotaoAlterarNumeros onClick={aumentarPagina}>+</BotaoAlterarNumeros>}
